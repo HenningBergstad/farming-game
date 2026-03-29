@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://b7tmmlt0hx6ry"]
+
+[ext_resource type="Script" uid="uid://xdxmaeanx1au" path="res://resources/crops/CropData.gd" id="1_og366"]
+
+[resource]
+script = ExtResource("1_og366")
+name = "raddish"
+buy_price = 2
+base_price = 4
+base_growth_time = 3
+soil_quality_effect = -1
+soil_fertility_effect = 2
+persistence_change = 0.19999999999999996
+hollow_yield_change = -0.19999999999999996
+model_folder = "res://models/crops/placeholder_plant"
+metadata/_custom_type_script = "uid://xdxmaeanx1au"

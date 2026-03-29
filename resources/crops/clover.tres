@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://db8s3r5vimfce"]
+
+[ext_resource type="Script" uid="uid://xdxmaeanx1au" path="res://resources/crops/CropData.gd" id="1_3y3wd"]
+
+[resource]
+script = ExtResource("1_3y3wd")
+name = "clover"
+buy_price = 1
+base_price = 2
+soil_quality_effect = 3
+soil_fertility_effect = 3
+model_folder = "res://models/crops/placeholder_plant"
+metadata/_custom_type_script = "uid://xdxmaeanx1au"

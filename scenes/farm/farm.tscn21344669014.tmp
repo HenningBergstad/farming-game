@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://dxabiikpnjwj7"]
+
+[ext_resource type="Script" uid="uid://cwlpihcb7wg0c" path="res://scripts/farm/farm.gd" id="1_a4t06"]
+[ext_resource type="ArrayMesh" uid="uid://s36auudmefos" path="res://models/tiles/soil.res" id="2_fev0l"]
+[ext_resource type="ArrayMesh" uid="uid://bll080k4rxxi0" path="res://models/decorations/fence_Cube_025.res" id="3_xp5e4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ucu"]
+albedo_color = Color(0.18, 0.077070005, 0.0486, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eed4j"]
+albedo_color = Color(0.45, 0.3765, 0.2925, 1)
+
+[sub_resource type="Environment" id="Environment_xp5e4"]
+background_mode = 2
+ambient_light_color = Color(1, 0.6039216, 0.36078432, 1)
+ambient_light_energy = 0.3
+tonemap_exposure = 1.81
+
+[node name="Farm" type="Node3D" unique_id=54762171]
+script = ExtResource("1_a4t06")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1764166013]
+transform = Transform3D(0.5224985, -0.3262913, 0.78773683, 0, 0.9238795, 0.38268346, -0.8526402, -0.19995153, 0.48272565, 0, 0, 0)
+light_color = Color(1, 0.9125, 0.79, 1)
+light_energy = 2.0
+shadow_enabled = true
+shadow_bias = 0.02
+shadow_blur = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1819204116]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 9)
+fov = 35.0
+
+[node name="Soil" type="MeshInstance3D" parent="." unique_id=12162563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.055, 0)
+material_override = SubResource("StandardMaterial3D_f0ucu")
+mesh = ExtResource("2_fev0l")
+
+[node name="FenceCube025" type="MeshInstance3D" parent="." unique_id=1589879617]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 4, 0.975, 4)
+material_override = SubResource("StandardMaterial3D_eed4j")
+mesh = ExtResource("3_xp5e4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1472038131]
+environment = SubResource("Environment_xp5e4")

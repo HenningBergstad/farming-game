@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PlantDefinition" format=3 uid="uid://yxkqrpeliwiw"]
+
+[ext_resource type="Resource" uid="uid://qvokg75f4pjg" path="res://resources/plants/corn/fruit.tres" id="1_6him8"]
+[ext_resource type="Script" uid="uid://cxnkeyp3jrcf3" path="res://scripts/crops/plant_definition.gd" id="1_wysx6"]
+[ext_resource type="Curve" uid="uid://dslbdaaxqj5a1" path="res://resources/plants/growth_curve.tres" id="2_p1h5w"]
+[ext_resource type="Script" uid="uid://c6u7efah7tynm" path="res://scripts/crops/stem_definition.gd" id="2_svkg8"]
+[ext_resource type="Resource" uid="uid://hva8i04qwrbo" path="res://resources/plants/corn/stem.tres" id="5_h38ge"]
+
+[resource]
+script = ExtResource("1_wysx6")
+stems = Array[ExtResource("2_svkg8")]([ExtResource("5_h38ge")])
+fruit = ExtResource("1_6him8")
+growth_curve = ExtResource("2_p1h5w")
+metadata/_custom_type_script = "uid://cxnkeyp3jrcf3"

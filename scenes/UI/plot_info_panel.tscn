@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c0omxso60ythi"]
+
+[ext_resource type="Script" uid="uid://cu1vpt6gxh2s6" path="res://scripts/UI/plot_info_panel.gd" id="1_f8ej7"]
+
+[node name="PlotInfoPanel" type="PanelContainer" unique_id=403747289]
+script = ExtResource("1_f8ej7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1801012135]
+layout_mode = 2
+
+[node name="CropLabel" type="Label" parent="VBoxContainer" unique_id=819455474]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1952642060]
+layout_mode = 2
+
+[node name="SoilQualityLabel" type="Label" parent="VBoxContainer" unique_id=1433898231]
+layout_mode = 2
+
+[node name="SoilFertilityLabel" type="Label" parent="VBoxContainer" unique_id=1888894930]
+layout_mode = 2
+
+[node name="MicrobialLabel" type="Label" parent="VBoxContainer" unique_id=954107893]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=1902630625]
+layout_mode = 2
+
+[node name="PersistenceLabel" type="Label" parent="VBoxContainer" unique_id=1324316002]
+layout_mode = 2
+
+[node name="HollowYieldLabel" type="Label" parent="VBoxContainer" unique_id=1910483109]
+layout_mode = 2

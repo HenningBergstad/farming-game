@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://dme0rpy8qp6xj"]
+
+[ext_resource type="Script" uid="uid://xdxmaeanx1au" path="res://resources/crops/CropData.gd" id="1_lq0tg"]
+
+[resource]
+script = ExtResource("1_lq0tg")
+name = "carrot"
+buy_price = 4
+base_price = 6
+market_resilience = 0.2
+base_growth_time = 4
+soil_quality_effect = -1
+persistence_change = 0.10000000000000009
+hollow_yield_change = -0.09999999999999998
+model_folder = "res://models/crops/placeholder_plant"
+metadata/_custom_type_script = "uid://xdxmaeanx1au"

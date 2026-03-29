@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FruitDefinition" format=3 uid="uid://qvokg75f4pjg"]
+
+[ext_resource type="Script" uid="uid://t0l3vfq4wx8q" path="res://scripts/crops/fruit_definition.gd" id="1_ydi77"]
+
+[resource]
+script = ExtResource("1_ydi77")
+position_on_stem = 0.7
+scale = Vector3(0.1, 0.2, 0.1)
+color = Color(0.75, 0.625, 0, 1)
+metadata/_custom_type_script = "uid://t0l3vfq4wx8q"

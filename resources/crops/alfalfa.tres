@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://b2axb5778k76h"]
+
+[ext_resource type="Script" uid="uid://xdxmaeanx1au" path="res://resources/crops/CropData.gd" id="1_ketgf"]
+
+[resource]
+script = ExtResource("1_ketgf")
+name = "alfalfa"
+buy_price = 2
+base_price = 4
+base_growth_time = 2
+soil_quality_effect = 2
+soil_fertility_effect = 2
+microbial_activity_effect = 1
+persistence_change = -0.19999999999999996
+hollow_yield_change = -0.5
+model_folder = "res://models/crops/placeholder_plant"
+metadata/_custom_type_script = "uid://xdxmaeanx1au"

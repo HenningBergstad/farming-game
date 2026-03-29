@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://bgtgrtau215h1"]
+
+[ext_resource type="Script" uid="uid://xdxmaeanx1au" path="res://resources/crops/CropData.gd" id="1_p52vt"]
+
+[resource]
+script = ExtResource("1_p52vt")
+name = "lettuce"
+buy_price = 1
+base_price = 3
+base_growth_time = 4
+soil_quality_effect = -1
+soil_fertility_effect = -1
+persistence_change = 0.1499999999999999
+model_folder = "res://models/crops/placeholder_plant"
+metadata/_custom_type_script = "uid://xdxmaeanx1au"
