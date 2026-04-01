@@ -40,7 +40,7 @@ func _handle_left_click(x: int, z: int) -> void:
 	farm.get_node("HUD").close_plot_info()
 	var plot = farm.get_plot(x, z)
 	if plot.is_ready_to_harvest():
-		farm.harvest_crop(x, z)
+		farm.sell_crop(x, z)
 	elif not plot.is_occupied():
 		var test_crop = load("res://resources/crops/corn.tres")
 		farm.plant_crop(x, z, test_crop)

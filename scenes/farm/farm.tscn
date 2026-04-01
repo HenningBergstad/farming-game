@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bd0r6l4ehai5y" path="res://scenes/UI/HUD.tscn" id="4_36fi7"]
 [ext_resource type="Script" uid="uid://c5qsxnc8ubg7n" path="res://scripts/UI/hud.gd" id="5_fhtoc"]
 [ext_resource type="PackedScene" uid="uid://c0omxso60ythi" path="res://scenes/UI/plot_info_panel.tscn" id="8_eed4j"]
+[ext_resource type="Script" uid="uid://setpo4yhf2wp" path="res://scripts/UI/price_ticker_bar.gd" id="9_k484s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ucu"]
 albedo_color = Color(0.18, 0.077070005, 0.0486, 1)
@@ -15,10 +16,15 @@ albedo_color = Color(0.18, 0.077070005, 0.0486, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eed4j"]
 albedo_color = Color(0.45, 0.3765, 0.2925, 1)
 
+[sub_resource type="Sky" id="Sky_eed4j"]
+
 [sub_resource type="Environment" id="Environment_xp5e4"]
 background_mode = 2
-ambient_light_color = Color(1, 0.6039216, 0.36078432, 1)
-ambient_light_energy = 0.3
+background_energy_multiplier = 2.58
+sky = SubResource("Sky_eed4j")
+ambient_light_color = Color(0.9999997, 0.5881284, 0.33123958, 1)
+ambient_light_sky_contribution = 0.89
+ambient_light_energy = 3.97
 tonemap_exposure = 1.81
 
 [node name="Farm" type="Node3D" unique_id=54762171]
@@ -60,7 +66,6 @@ follow_viewport_enabled = true
 script = ExtResource("5_fhtoc")
 
 [node name="PlotInfoPanel" parent="HUD" unique_id=403747289 instance=ExtResource("8_eed4j")]
-visible = false
 
 [node name="Button" type="Button" parent="HUD" unique_id=804933179]
 anchors_preset = 3
@@ -75,3 +80,59 @@ offset_bottom = -19.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "End day"
+
+[node name="GoldPanel" type="Panel" parent="HUD" unique_id=1548249857]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 155.0
+offset_bottom = 64.0
+
+[node name="GoldLabel" type="Label" parent="HUD/GoldPanel" unique_id=774224925]
+layout_mode = 0
+offset_right = 135.0
+offset_bottom = 44.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="HUD" unique_id=190926148]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="SellZone" type="PanelContainer" parent="HUD/Control" unique_id=1204037076]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 400.0
+
+[node name="Label" type="Label" parent="HUD/Control/SellZone" unique_id=744316496]
+layout_mode = 2
+theme_override_font_sizes/font_size = 90
+text = "Drop here to sell"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Control" unique_id=984239294]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -170.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 166
+theme_override_constants/margin_bottom = 20
+
+[node name="PriceTickerBar" type="HBoxContainer" parent="HUD/Control/MarginContainer" unique_id=299709383]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("9_k484s")
