@@ -15,6 +15,11 @@ func setup(plot: PlotData, world_position: Vector3) -> void:
 	# Start at zero growth
 	plant_instance.update_growth(0.0)
 
-func update_visual(progress: float) -> void:
+func update_visual(progress: float, duration: float = 0.5) -> void:
 	if plant_instance != null:
-		plant_instance.update_growth(progress)
+		plant_instance.update_growth(progress, duration)
+
+
+func set_wind(angle: float, duration: float = 0.5) -> void:
+	if plant_instance != null:
+		plant_instance.set_wind(angle, duration)

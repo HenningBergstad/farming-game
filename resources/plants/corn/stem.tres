@@ -1,11 +1,10 @@
 [gd_resource type="Resource" script_class="StemDefinition" format=3 uid="uid://hva8i04qwrbo"]
 
-[ext_resource type="Script" uid="uid://cc2sljq11e5c8" path="res://scripts/crops/leaf_definition.gd" id="1_2jx3o"]
 [ext_resource type="Script" uid="uid://c6u7efah7tynm" path="res://scripts/crops/stem_definition.gd" id="2_t3qpo"]
 
 [resource]
 script = ExtResource("2_t3qpo")
-max_height = 1.5
-max_thickness = 0.06
-random_offset_range = 0.1
+thickness = 0.02
+spawn_radius = 0.15
+color = Color(0.11208891, 0.306298, 0.049859382, 1)
 metadata/_custom_type_script = "uid://c6u7efah7tynm"
