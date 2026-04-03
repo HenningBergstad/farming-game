@@ -8,13 +8,18 @@
 [ext_resource type="PackedScene" uid="uid://bd0r6l4ehai5y" path="res://scenes/UI/HUD.tscn" id="4_36fi7"]
 [ext_resource type="Script" uid="uid://c5qsxnc8ubg7n" path="res://scripts/UI/hud.gd" id="5_fhtoc"]
 [ext_resource type="PackedScene" uid="uid://c0omxso60ythi" path="res://scenes/UI/plot_info_panel.tscn" id="8_eed4j"]
+[ext_resource type="Script" uid="uid://bxrcjjgorykco" path="res://scenes/farm/sell_drawer.gd" id="9_51x8p"]
 [ext_resource type="Script" uid="uid://setpo4yhf2wp" path="res://scripts/UI/price_ticker_bar.gd" id="9_k484s"]
+[ext_resource type="Script" uid="uid://2nkchxwo7jqe" path="res://scripts/UI/buy_drawer.gd" id="11_cxgs2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ucu"]
 albedo_color = Color(0.18, 0.077070005, 0.0486, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eed4j"]
 albedo_color = Color(0.45, 0.3765, 0.2925, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_51x8p"]
+albedo_color = Color(0.25822753, 0.4540516, 0, 1)
 
 [sub_resource type="Sky" id="Sky_eed4j"]
 
@@ -24,8 +29,12 @@ background_energy_multiplier = 2.58
 sky = SubResource("Sky_eed4j")
 ambient_light_color = Color(0.9999997, 0.5881284, 0.33123958, 1)
 ambient_light_sky_contribution = 0.89
-ambient_light_energy = 3.97
+ambient_light_energy = 3.25
 tonemap_exposure = 1.81
+glow_enabled = true
+glow_intensity = 1.59
+glow_strength = 0.78
+glow_bloom = 0.53
 
 [node name="Farm" type="Node3D" unique_id=54762171]
 script = ExtResource("1_a4t06")
@@ -33,30 +42,80 @@ script = ExtResource("1_a4t06")
 [node name="FarmInteraction" type="Node" parent="." unique_id=1480770823]
 script = ExtResource("2_fhtoc")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1764166013]
-transform = Transform3D(0.5890352, -0.010178328, 0.80804324, -0.65505147, 0.57954055, 0.4848096, -0.4732284, -0.81487983, 0.33470246, 0, 0, 0)
+[node name="SunPivot" type="Node3D" parent="." unique_id=187959274]
+transform = Transform3D(0.9335804, 0.16269565, -0.3193082, 0, 0.8910065, 0.45399052, 0.35836795, -0.42383665, 0.8318262, 0, 0, 0)
+
+[node name="Sun" type="DirectionalLight3D" parent="SunPivot" unique_id=1764166013]
+transform = Transform3D(0.6983472, -0.10688943, 0.70773274, -0.5737334, 0.50759643, 0.6427876, -0.4279499, -0.85493886, 0.2931525, 0, 0, 0)
 light_color = Color(1, 0.7647059, 0.34901962, 1)
 light_energy = 2.0
 shadow_enabled = true
 shadow_bias = 0.02
-shadow_blur = 2.0
+shadow_blur = 0.0
 
 [node name="CameraOrbit" type="Node3D" parent="." unique_id=709763892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 script = ExtResource("3_f0ucu")
 
 [node name="Camera3D" type="Camera3D" parent="CameraOrbit" unique_id=1819204116]
-transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 9)
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 12, 10)
 fov = 35.0
 
-[node name="Soil" type="MeshInstance3D" parent="." unique_id=12162563]
+[node name="assets" type="Node3D" parent="." unique_id=617172672]
+
+[node name="field" type="Node3D" parent="assets" unique_id=702512382]
+
+[node name="Soil" type="MeshInstance3D" parent="assets/field" unique_id=12162563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.055, 0)
 material_override = SubResource("StandardMaterial3D_f0ucu")
 mesh = ExtResource("2_fev0l")
 
-[node name="FenceCube025" type="MeshInstance3D" parent="." unique_id=1589879617]
+[node name="FenceCube025" type="MeshInstance3D" parent="assets/field" unique_id=1589879617]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 4, 0.975, 4)
 material_override = SubResource("StandardMaterial3D_eed4j")
 mesh = ExtResource("3_xp5e4")
+
+[node name="grass" type="Node3D" parent="assets" unique_id=717921543]
+
+[node name="grass1" type="MeshInstance3D" parent="assets/grass" unique_id=1395422736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.055, 0)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
+
+[node name="grass2" type="MeshInstance3D" parent="assets/grass" unique_id=1790459461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -0.055, 0)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
+
+[node name="grass3" type="MeshInstance3D" parent="assets/grass" unique_id=62876040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.055, 10)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
+
+[node name="grass4" type="MeshInstance3D" parent="assets/grass" unique_id=79466537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -0.055, 10)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
+
+[node name="grass5" type="MeshInstance3D" parent="assets/grass" unique_id=2126937184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.055, -10)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
+
+[node name="grass6" type="MeshInstance3D" parent="assets/grass" unique_id=1890646624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -0.055, -10)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
+
+[node name="grass7" type="MeshInstance3D" parent="assets/grass" unique_id=1667979178]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.055, 10)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
+
+[node name="grass8" type="MeshInstance3D" parent="assets/grass" unique_id=98337808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.055, -10)
+material_override = SubResource("StandardMaterial3D_51x8p")
+mesh = ExtResource("2_fev0l")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1472038131]
 environment = SubResource("Environment_xp5e4")
@@ -67,35 +126,7 @@ script = ExtResource("5_fhtoc")
 
 [node name="PlotInfoPanel" parent="HUD" unique_id=403747289 instance=ExtResource("8_eed4j")]
 
-[node name="Button" type="Button" parent="HUD" unique_id=804933179]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -154.0
-offset_top = -63.0
-offset_right = -19.0
-offset_bottom = -19.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "End day"
-
-[node name="GoldPanel" type="Panel" parent="HUD" unique_id=1548249857]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 155.0
-offset_bottom = 64.0
-
-[node name="GoldLabel" type="Label" parent="HUD/GoldPanel" unique_id=774224925]
-layout_mode = 0
-offset_right = 135.0
-offset_bottom = 44.0
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Control" type="Control" parent="HUD" unique_id=190926148]
+[node name="SellDrawerContainer" type="Control" parent="HUD" unique_id=190926148]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -103,20 +134,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("9_51x8p")
 
-[node name="SellZone" type="PanelContainer" parent="HUD/Control" unique_id=1204037076]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 400.0
-
-[node name="Label" type="Label" parent="HUD/Control/SellZone" unique_id=744316496]
-layout_mode = 2
-theme_override_font_sizes/font_size = 90
-text = "Drop here to sell"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD/Control" unique_id=984239294]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/SellDrawerContainer" unique_id=487270822]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -125,14 +145,160 @@ anchor_bottom = 1.0
 offset_top = -170.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/SellDrawerContainer/HBoxContainer" unique_id=984239294]
+layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 166
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="PriceTickerBar" type="HBoxContainer" parent="HUD/Control/MarginContainer" unique_id=299709383]
+[node name="PriceTickerBar" type="HBoxContainer" parent="HUD/SellDrawerContainer/HBoxContainer/MarginContainer" unique_id=299709383]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 theme_override_constants/separation = 20
 script = ExtResource("9_k484s")
+
+[node name="MarginContainer3" type="MarginContainer" parent="HUD/SellDrawerContainer/HBoxContainer" unique_id=1772001520]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="HUD/SellDrawerContainer/HBoxContainer/MarginContainer3" unique_id=804933179]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "End day"
+
+[node name="MarginContainer2" type="MarginContainer" parent="HUD/SellDrawerContainer" unique_id=1543051167]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 0
+
+[node name="SellZone" type="PanelContainer" parent="HUD/SellDrawerContainer/MarginContainer2" unique_id=1204037076]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/SellDrawerContainer/MarginContainer2/SellZone" unique_id=843806869]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="HUD/SellDrawerContainer/MarginContainer2/SellZone/MarginContainer" unique_id=744316496]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 90
+text = "Drop here to sell"
+horizontal_alignment = 1
+
+[node name="BuyDrawerContainer" type="Control" parent="HUD" unique_id=273515219]
+custom_minimum_size = Vector2(0, 175)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("11_cxgs2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/BuyDrawerContainer" unique_id=816850886]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 140.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/BuyDrawerContainer/HBoxContainer" unique_id=741977346]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GoldPanel" type="Panel" parent="HUD/BuyDrawerContainer/HBoxContainer/MarginContainer" unique_id=1548249857]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="HUD/BuyDrawerContainer/HBoxContainer/MarginContainer/GoldPanel" unique_id=774224925]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HUD/BuyDrawerContainer/HBoxContainer" unique_id=20165075]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BuyPanel" type="Panel" parent="HUD/BuyDrawerContainer/HBoxContainer/MarginContainer2" unique_id=931454801]
+layout_mode = 2
+
+[node name="BuyLabel" type="Label" parent="HUD/BuyDrawerContainer/HBoxContainer/MarginContainer2/BuyPanel" unique_id=543027725]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Buy seeds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/BuyDrawerContainer" unique_id=698228309]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -520.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD/BuyDrawerContainer/MarginContainer" unique_id=659010893]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/BuyDrawerContainer/MarginContainer" unique_id=745655710]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/BuyDrawerContainer/MarginContainer/MarginContainer" unique_id=1375720925]
+layout_mode = 2
+
+[node name="StoreRow" type="HBoxContainer" parent="HUD/BuyDrawerContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=100304170]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="HUD/BuyDrawerContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=1856476842]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Store"
+horizontal_alignment = 1
+vertical_alignment = 1

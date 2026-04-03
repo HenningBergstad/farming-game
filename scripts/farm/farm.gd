@@ -9,16 +9,12 @@ var wind_angle: float = 0.0
 var turn_duration: float = GameConfig.TURN_DURATION
 var turn_duration_padding: float = GameConfig.TURN_DURATION_PADDING
 
-@onready var next_turn_button = $HUD/Button
+@onready var next_turn_button = $HUD/SellDrawerContainer/HBoxContainer/MarginContainer3/Button
 
 func _ready() -> void:
 	_init_grid()
 	_init_colliders()
 	$HUD.next_turn_pressed.connect(_on_next_turn)
-	
-	# Test: plant corn on plot 0,0
-	var test_crop = load("res://resources/crops/corn.tres")
-	plant_crop(0, 0, test_crop)
 
 func _init_grid() -> void:
 	for x in range(GRID_SIZE):
@@ -51,6 +47,7 @@ func _on_next_turn() -> void:
 	
 	# --- Shift wind direction ---
 	wind_angle += randf_range(0.5, 2.0)
+	# TODO: Wind angle needs to be tweened
 	
 	# --- Animate the sun and world environment ---
 	animate_sun(turn_duration)
@@ -73,7 +70,7 @@ func _on_next_turn() -> void:
 	next_turn_button.disabled = false
 
 func animate_sun(duration: float):
-	var sun = $DirectionalLight3D
+	var sun = $SunPivot/Sun
 	
 	# --- Rotation ---
 	var rotation_tween = create_tween()
@@ -118,13 +115,13 @@ func animate_world_env(duration: float) -> void:
 	var world_env = $WorldEnvironment
 	var color_tween = create_tween()
 	var color_midday = Color(0.966, 0.686, 0.0, 1.0)
-	var color_sunset = Color(0.781, 0.477, 0.0, 1.0)
-	var color_night = Color(0.0, 0.168, 0.323, 1.0)
-	var color_sunrise = Color(0.78, 0.478, 0.0, 1.0)
+	var color_sunset = Color(0.86, 0.527, 0.0, 1.0)
+	var color_night = Color(0.0, 0.442, 0.788, 1.0)
+	var color_sunrise = Color(0.87, 0.535, 0.0, 1.0)
 	var color_standard = Color(1.0, 0.765, 0.35, 1.0)
 	
 	var weights: Array = [
-		1.0, 3.0,# midday      tween hold
+		1.0, 3.0, # midday      tween hold
 		2.0, 2.0, # sunset      tween hold
 		1.0, 4.0, # night       tween hold
 		2.0, 1.0, # sunrise     tween hold

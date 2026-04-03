@@ -16,8 +16,8 @@ const CROP_PATHS: Array = [
 const STARTING_GOLD: int = 50
 
 # --- Turn values ----
-const TURN_DURATION: float = 2.0          # default 8
-const TURN_DURATION_PADDING: float = 0.5  # default 1
+const TURN_DURATION: float = 6.0          # default 8
+const TURN_DURATION_PADDING: float = 0.2  # default 0.5
 
 # --- Market ---
 const MARKET_FREEZE: int = 4

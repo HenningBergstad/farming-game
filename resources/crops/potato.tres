@@ -12,5 +12,4 @@ base_growth_time = 3
 soil_fertility_effect = -1
 persistence_change = -0.09999999999999998
 hollow_yield_change = 0.10000000000000009
-model_folder = "res://models/crops/placeholder_plant"
 metadata/_custom_type_script = "uid://xdxmaeanx1au"

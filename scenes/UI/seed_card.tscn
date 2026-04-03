@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://3m60vomye7uw"]
+
+[ext_resource type="Script" uid="uid://6l15is10khrr" path="res://scripts/UI/seed_card.gd" id="1_3otvn"]
+
+[node name="SeedCard" type="PanelContainer" unique_id=1595210354]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_3otvn")
+
+[node name="Panel" type="Panel" parent="." unique_id=610121172]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2050716148]
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SeedName" type="Label" parent="VBoxContainer" unique_id=693750930]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SeedPrice" type="Label" parent="VBoxContainer" unique_id=842593447]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "Price"
+horizontal_alignment = 1
+vertical_alignment = 1

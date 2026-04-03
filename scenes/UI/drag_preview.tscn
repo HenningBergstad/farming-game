@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cv213estidj3j"]
+
+[ext_resource type="Script" uid="uid://n071bw0nsyer" path="res://scripts/UI/drag_preview.gd" id="1_oigbr"]
+
+[node name="DragPreview" type="PanelContainer" unique_id=1830053530]
+custom_minimum_size = Vector2(300, 300)
+offset_right = 265.0
+offset_bottom = 69.0
+mouse_filter = 2
+script = ExtResource("1_oigbr")
+
+[node name="Label" type="Label" parent="." unique_id=1792143890]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Crop name"
+horizontal_alignment = 1
+vertical_alignment = 1

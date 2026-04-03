@@ -5,9 +5,9 @@ var player_gold: int = PlayerData.player_gold
 signal next_turn_pressed
 
 func _ready() -> void:
-	$Button.pressed.connect(_on_next_turn_pressed)
+	$SellDrawerContainer/HBoxContainer/MarginContainer3/Button.pressed.connect(_on_next_turn_pressed)
 	$PlotInfoPanel.hide()
-	$GoldPanel/GoldLabel.text = str(player_gold)
+	$BuyDrawerContainer/HBoxContainer/MarginContainer/GoldPanel/GoldLabel.text = str(player_gold)
 	PlayerData.gold_changed.connect(update_gold_label)
 
 func _on_next_turn_pressed() -> void:
@@ -21,4 +21,4 @@ func close_plot_info() -> void:
 	$PlotInfoPanel.close()
 
 func update_gold_label(amount) -> void:
-	$GoldPanel/GoldLabel.text = str(amount)
+	$BuyDrawerContainer/HBoxContainer/MarginContainer/GoldPanel/GoldLabel.text = str(amount)

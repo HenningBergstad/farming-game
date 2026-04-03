@@ -7,8 +7,8 @@ func setup(new_crop_data: CropData) -> void:
 	var crop_name = crop_data.name
 	var price = MarketManager.get_sell_price(crop_data, 0.0)
 	
-	$VBoxContainer/Panel/CropNameLabel.text = crop_name
-	$VBoxContainer/Panel/PriceLabel.text = str(price)
+	$VBoxContainer/CropNameLabel.text = crop_name
+	$VBoxContainer/PriceLabel.text = str(price)
 
 func update_price() -> void:
-	$VBoxContainer/Panel/PriceLabel.text = str(MarketManager.get_sell_price(crop_data, 0.0))
+	$VBoxContainer/PriceLabel.text = str(MarketManager.get_sell_price(crop_data, 0.0))

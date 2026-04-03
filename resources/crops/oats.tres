@@ -13,5 +13,4 @@ soil_fertility_effect = 1
 microbial_activity_effect = -1
 persistence_change = 0.10000000000000009
 hollow_yield_change = 0.10000000000000009
-model_folder = "res://models/crops/placeholder_plant"
 metadata/_custom_type_script = "uid://xdxmaeanx1au"

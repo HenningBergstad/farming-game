@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CropData" format=3 uid="uid://cmb8kyttiyrts"]
 
-[ext_resource type="Resource" uid="uid://yxkqrpeliwiw" path="res://resources/plants/corn/plant.tres" id="1_81xhp"]
+[ext_resource type="PackedScene" uid="uid://bph8f5ct2brot" path="res://scenes/crops/corn_plant.tscn" id="1_81xhp"]
 [ext_resource type="Script" uid="uid://xdxmaeanx1au" path="res://resources/crops/CropData.gd" id="1_c2j27"]
 
 [resource]
@@ -9,11 +9,10 @@ name = "corn"
 buy_price = 4
 base_price = 9
 market_resilience = 0.6
-base_growth_time = 7
+base_growth_time = 2
 soil_quality_effect = -2
 soil_fertility_effect = -2
 persistence_change = 0.10000000000000007
 hollow_yield_change = 0.10000000000000007
-model_folder = "res://models/crops/placeholder_plant"
-plant_definition = ExtResource("1_81xhp")
+plant_scene = ExtResource("1_81xhp")
 metadata/_custom_type_script = "uid://xdxmaeanx1au"

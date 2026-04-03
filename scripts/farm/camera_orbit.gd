@@ -1,8 +1,8 @@
 extends Node3D
 
-const MAX_TILT = 2.0
+const MAX_TILT = 5.0
 
-const LERP_WEIGHT = 0.02
+const LERP_WEIGHT = 0.04
 
 var target_rotation: Vector3 = Vector3.ZERO
 

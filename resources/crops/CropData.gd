@@ -33,4 +33,4 @@ extends Resource
 
 @export var model_folder: String = "res://models/crops/"
 
-@export var plant_definition: PlantDefinition = null
+@export var plant_scene: PackedScene
