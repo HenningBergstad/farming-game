@@ -5,7 +5,12 @@ const PLOT_SIZE = 1.0
 
 var grid: Array = []
 var crop_instances: Array = []
+
 var wind_angle: float = 0.0
+var wind_strength: float = 0.3
+var sway_speed: float = 0.7
+var _wind_transitioning: bool = false
+
 var turn_duration: float = GameConfig.TURN_DURATION
 var turn_duration_padding: float = GameConfig.TURN_DURATION_PADDING
 
@@ -15,6 +20,10 @@ func _ready() -> void:
 	_init_grid()
 	_init_colliders()
 	$HUD.next_turn_pressed.connect(_on_next_turn)
+
+func _process(delta: float) -> void:
+	if _wind_transitioning:
+		_push_wind_to_crops()
 
 func _init_grid() -> void:
 	for x in range(GRID_SIZE):
@@ -46,8 +55,7 @@ func _on_next_turn() -> void:
 	MarketManager.advance_turn()
 	
 	# --- Shift wind direction ---
-	wind_angle += randf_range(0.5, 2.0)
-	# TODO: Wind angle needs to be tweened
+	update_wind(turn_duration)
 	
 	# --- Animate the sun and world environment ---
 	animate_sun(turn_duration)
@@ -64,7 +72,7 @@ func _on_next_turn() -> void:
 			
 			var progress = 1.0 - (float(plot.turns_remaining) / float(plot.crop_data.base_growth_time))
 			crop_instances[x][z].update_visual(progress, turn_duration)
-			crop_instances[x][z].set_wind(wind_angle, turn_duration)
+			crop_instances[x][z].set_wind(wind_angle, wind_strength, sway_speed)
 	
 	await get_tree().create_timer(turn_duration + turn_duration_padding).timeout
 	next_turn_button.disabled = false
@@ -143,6 +151,26 @@ func animate_world_env(duration: float) -> void:
 	color_tween.tween_interval(duration * (weights[7] / weight_total))
 	color_tween.tween_property(world_env, "environment:ambient_light_color", color_standard, duration * (weights[8] / weight_total))
 
+func update_wind(duration: float) -> void:
+	var target_angle = wind_angle + randf_range(0.5, 2.0)
+	var target_strength = randf_range(0.1, 1.0)
+	var target_speed = lerpf(0.5, 2.0, target_strength / 0.4)
+	
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(self, "wind_angle", target_angle, duration)
+	tween.tween_property(self, "wind_strength", target_strength, duration)
+		
+	_wind_transitioning = true
+	tween.finished.connect(func(): _wind_transitioning = false)
+	
+func _push_wind_to_crops() -> void:
+	var current_sway_speed = lerpf(0.5, 2.0, wind_strength / 0.4)
+	for x in range(GRID_SIZE):
+		for z in range(GRID_SIZE):
+			if crop_instances[x][z] != null:
+				crop_instances[x][z].set_wind(wind_angle, wind_strength, sway_speed)
+
 func plant_crop(x: int, z: int, crop_data: CropData) -> void:
 	if get_plot(x, z).is_occupied():
 		print("Plot is already occupied!")
@@ -156,6 +184,7 @@ func plant_crop(x: int, z: int, crop_data: CropData) -> void:
 	# Show initial growth state immediately on planting
 	var initial_progress = 1.0 / float(crop_data.base_growth_time)
 	crop_instances[x][z].update_visual(initial_progress, 0.5)
+	crop_instances[x][z].set_wind(wind_angle, wind_strength, sway_speed)
 
 
 func harvest_crop(x: int, z: int) -> void:

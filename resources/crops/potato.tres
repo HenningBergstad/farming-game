@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="CropData" format=3 uid="uid://bcg1bduukf1c3"]
 
 [ext_resource type="Script" uid="uid://xdxmaeanx1au" path="res://resources/crops/CropData.gd" id="1_sqlid"]
+[ext_resource type="PackedScene" uid="uid://hcnc46o42apl" path="res://scenes/crops/potato_plant.tscn" id="1_t5qka"]
 
 [resource]
 script = ExtResource("1_sqlid")
@@ -11,5 +12,6 @@ market_resilience = 0.6
 base_growth_time = 3
 soil_fertility_effect = -1
 persistence_change = -0.09999999999999998
-hollow_yield_change = 0.10000000000000009
+hollow_yield_change = 0.10000000000000007
+plant_scene = ExtResource("1_t5qka")
 metadata/_custom_type_script = "uid://xdxmaeanx1au"

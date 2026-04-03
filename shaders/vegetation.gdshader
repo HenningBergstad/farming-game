@@ -2,6 +2,7 @@ shader_type spatial;
 render_mode cull_disabled;
 
 uniform sampler2D albedo_texture : source_color, filter_nearest;
+uniform vec3 color_tint : source_color = vec3(1.0, 1.0, 1.0);
 uniform float alpha_scissor_thershold : hint_range(0.0, 1.0) = 0.5;
 uniform vec3 backlight_color : source_color = vec3(0.2, 0.5, 0.1);
 uniform float backlight_strength: hint_range(0.0, 1.0) = 0.4;
@@ -26,7 +27,7 @@ void vertex() {
 
 void fragment() {
 	vec4 tex = texture(albedo_texture, UV);
-	ALBEDO = tex.rgb;
+	ALBEDO = tex.rgb * color_tint;
 	ALPHA = tex.a;
 	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_thershold;
 	BACKLIGHT = backlight_color * backlight_strength;

@@ -20,7 +20,7 @@ func update_visual(progress: float, duration: float = 0.5) -> void:
 		return
 	plant.update_growth(progress, duration)
 
-func set_wind(angle: float, strength: float, speed: float = 1, duration: float = 0.5) -> void:
+func set_wind(angle: float, strength: float, speed: float) -> void:
 	if plant == null:
 		return
-	plant.set_wind(angle, strength, speed, duration)
+	plant.set_wind(angle, strength, speed)

@@ -1,0 +1,181 @@
+[gd_scene format=3 uid="uid://hcnc46o42apl"]
+
+[ext_resource type="Shader" uid="uid://b1uf8yeu6sjpn" path="res://shaders/vegetation.gdshader" id="1_5iith"]
+[ext_resource type="Script" uid="uid://jlqf5xyngvum" path="res://scripts/plants/corn/potato_plant.gd" id="1_i3jbm"]
+[ext_resource type="Curve" uid="uid://dslbdaaxqj5a1" path="res://resources/growth_curve.tres" id="2_hyqqi"]
+[ext_resource type="Texture2D" uid="uid://v5ro18a62epo" path="res://models/crops/potato_textures/potato_stem.png" id="2_i3jbm"]
+[ext_resource type="Texture2D" uid="uid://8vommf15vjor" path="res://models/crops/potato_textures/potato_leaf1.png" id="3_hyqqi"]
+[ext_resource type="Texture2D" uid="uid://ds0qvu7442yb2" path="res://models/crops/potato_textures/potato_leaf2.png" id="4_nposh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_biy6p"]
+render_priority = 0
+shader = ExtResource("1_5iith")
+shader_parameter/albedo_texture = ExtResource("2_i3jbm")
+shader_parameter/color_tint = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_thershold = 0.5
+shader_parameter/backlight_color = Color(0.2, 0.5, 0.1, 1)
+shader_parameter/backlight_strength = 0.4
+shader_parameter/wind_direction = Vector2(1, 0)
+shader_parameter/wind_strength = 0.2
+shader_parameter/sway_speed = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lytyl"]
+material = SubResource("ShaderMaterial_biy6p")
+size = Vector2(0.02, 0.32)
+subdivide_depth = 4
+center_offset = Vector3(0, 0, -0.16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbl2o"]
+render_priority = 0
+shader = ExtResource("1_5iith")
+shader_parameter/albedo_texture = ExtResource("3_hyqqi")
+shader_parameter/color_tint = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_thershold = 0.5
+shader_parameter/backlight_color = Color(0.2, 0.5, 0.1, 1)
+shader_parameter/backlight_strength = 0.4
+shader_parameter/wind_direction = Vector2(1, 0)
+shader_parameter/wind_strength = 0.2
+shader_parameter/sway_speed = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3s5xd"]
+material = SubResource("ShaderMaterial_jbl2o")
+size = Vector2(0.16, 0.16)
+center_offset = Vector3(0.08, 0, -0.08)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vdyv"]
+render_priority = 0
+shader = ExtResource("1_5iith")
+shader_parameter/albedo_texture = ExtResource("4_nposh")
+shader_parameter/color_tint = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_thershold = 0.5
+shader_parameter/backlight_color = Color(0.2, 0.5, 0.1, 1)
+shader_parameter/backlight_strength = 0.4
+shader_parameter/wind_direction = Vector2(1, 0)
+shader_parameter/wind_strength = 0.2
+shader_parameter/sway_speed = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8riuf"]
+material = SubResource("ShaderMaterial_5vdyv")
+size = Vector2(0.16, 0.16)
+center_offset = Vector3(0.08, 0, -0.08)
+
+[node name="PotatoPlant" type="Node3D" unique_id=2006663583]
+script = ExtResource("1_i3jbm")
+growth_curve = ExtResource("2_hyqqi")
+
+[node name="Bush1" type="Node3D" parent="." unique_id=722266590]
+transform = Transform3D(0.47626674, 0.26494303, 0.8384362, -0.16985355, 0.96328735, -0.2079117, -0.8627397, -0.043389924, 0.5037833, 0, 0, 0)
+
+[node name="Stalk" type="Node3D" parent="Bush1" unique_id=1731944813]
+
+[node name="Stalk" type="MeshInstance3D" parent="Bush1/Stalk" unique_id=1175695003]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_lytyl")
+
+[node name="Stalk2" type="MeshInstance3D" parent="Bush1/Stalk" unique_id=215926447]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0, 0, 0)
+mesh = SubResource("PlaneMesh_lytyl")
+
+[node name="Leaves" type="Node3D" parent="Bush1" unique_id=2071834210]
+
+[node name="Leaf" type="MeshInstance3D" parent="Bush1/Leaves" unique_id=952418313]
+transform = Transform3D(0.90056515, -0.25967598, 0.34864134, 0.41556296, 0.7496954, -0.5150381, -0.12763178, 0.6087078, 0.78306127, 0, 0.09, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Bush1/Leaves" unique_id=1782335205]
+transform = Transform3D(-0.7193582, -0.69458455, 0.008726177, 0.004222106, -0.016933942, -0.9998477, 0.6946265, -0.7192118, 0.01511418, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf3" type="MeshInstance3D" parent="Bush1/Leaves" unique_id=250761131]
+transform = Transform3D(0.98177063, -0.18016903, -0.06054347, -0.16805309, -0.6740241, -0.7193397, 0.088794984, 0.7164012, -0.6920151, 0, 0.04, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf4" type="MeshInstance3D" parent="Bush1/Leaves" unique_id=224087467]
+transform = Transform3D(0.6868565, -0.36872768, -0.62631303, -0.45451948, 0.45451948, -0.76604444, 0.5671333, 0.81083405, 0.14459574, 0, 0.23, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf5" type="MeshInstance3D" parent="Bush1/Leaves" unique_id=372017923]
+transform = Transform3D(-0.224951, -0.6519809, 0.724098, 0, -0.7431448, -0.6691306, 0.97437006, -0.1505216, 0.16717117, 0, 0.23, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Leaf6" type="MeshInstance3D" parent="Bush1/Leaves" unique_id=803616164]
+transform = Transform3D(0.7411375, 0.5026859, 0.44499665, 0.5985192, -0.19447072, -0.777146, -0.3041215, 0.842311, -0.44499674, 0, 0.3, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Bush2" type="Node3D" parent="." unique_id=205855011]
+transform = Transform3D(0.77722657, -0.28277272, -0.56210184, 0.13309191, 0.94699806, -0.2923717, 0.61498404, 0.15242785, 0.77366686, 0, 0, 0)
+
+[node name="Stalk" type="Node3D" parent="Bush2" unique_id=1999506484]
+
+[node name="Stalk" type="MeshInstance3D" parent="Bush2/Stalk" unique_id=358641249]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_lytyl")
+
+[node name="Stalk2" type="MeshInstance3D" parent="Bush2/Stalk" unique_id=1013408471]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0, 0, 0)
+mesh = SubResource("PlaneMesh_lytyl")
+
+[node name="Leaves" type="Node3D" parent="Bush2" unique_id=744527445]
+
+[node name="Leaf" type="MeshInstance3D" parent="Bush2/Leaves" unique_id=1542039530]
+transform = Transform3D(0.90056515, -0.25967598, 0.34864134, 0.41556296, 0.7496954, -0.5150381, -0.12763178, 0.6087078, 0.78306127, 0, 0.09, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Bush2/Leaves" unique_id=1501690832]
+transform = Transform3D(-0.7193582, -0.69458455, 0.008726177, 0.004222106, -0.016933942, -0.9998477, 0.6946265, -0.7192118, 0.01511418, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf3" type="MeshInstance3D" parent="Bush2/Leaves" unique_id=431725567]
+transform = Transform3D(0.98177063, -0.18016903, -0.06054347, -0.16805309, -0.6740241, -0.7193397, 0.088794984, 0.7164012, -0.6920151, 0, 0.04, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf4" type="MeshInstance3D" parent="Bush2/Leaves" unique_id=1204964988]
+transform = Transform3D(0.6868565, -0.36872768, -0.62631303, -0.45451948, 0.45451948, -0.76604444, 0.5671333, 0.81083405, 0.14459574, 0, 0.23, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf5" type="MeshInstance3D" parent="Bush2/Leaves" unique_id=1312566444]
+transform = Transform3D(-0.224951, -0.6519809, 0.724098, 0, -0.7431448, -0.6691306, 0.97437006, -0.1505216, 0.16717117, 0, 0.23, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Leaf6" type="MeshInstance3D" parent="Bush2/Leaves" unique_id=1850100086]
+transform = Transform3D(0.7411375, 0.5026859, 0.44499665, 0.5985192, -0.19447072, -0.777146, -0.3041215, 0.842311, -0.44499674, 0, 0.3, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Bush3" type="Node3D" parent="." unique_id=143465464]
+transform = Transform3D(-0.45565054, -0.08059413, -0.8865028, 0.23663531, 0.94909245, -0.2079117, 0.85812944, -0.30451298, -0.41338313, 0, 0, 0)
+
+[node name="Stalk" type="Node3D" parent="Bush3" unique_id=507143344]
+
+[node name="Stalk" type="MeshInstance3D" parent="Bush3/Stalk" unique_id=1272475806]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_lytyl")
+
+[node name="Stalk2" type="MeshInstance3D" parent="Bush3/Stalk" unique_id=747123714]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0, 0, 0)
+mesh = SubResource("PlaneMesh_lytyl")
+
+[node name="Leaves" type="Node3D" parent="Bush3" unique_id=63781649]
+
+[node name="Leaf" type="MeshInstance3D" parent="Bush3/Leaves" unique_id=829642554]
+transform = Transform3D(0.90056515, -0.25967598, 0.34864134, 0.41556296, 0.7496954, -0.5150381, -0.12763178, 0.6087078, 0.78306127, 0, 0.09, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Bush3/Leaves" unique_id=845340868]
+transform = Transform3D(-0.7193582, -0.69458455, 0.008726177, 0.004222106, -0.016933942, -0.9998477, 0.6946265, -0.7192118, 0.01511418, 0, 0.05, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf3" type="MeshInstance3D" parent="Bush3/Leaves" unique_id=8471559]
+transform = Transform3D(0.98177063, -0.18016903, -0.06054347, -0.16805309, -0.6740241, -0.7193397, 0.088794984, 0.7164012, -0.6920151, 0, 0.04, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf4" type="MeshInstance3D" parent="Bush3/Leaves" unique_id=738917236]
+transform = Transform3D(0.6868565, -0.36872768, -0.62631303, -0.45451948, 0.45451948, -0.76604444, 0.5671333, 0.81083405, 0.14459574, 0, 0.23, 0)
+mesh = SubResource("PlaneMesh_8riuf")
+
+[node name="Leaf5" type="MeshInstance3D" parent="Bush3/Leaves" unique_id=362131093]
+transform = Transform3D(-0.224951, -0.6519809, 0.724098, 0, -0.7431448, -0.6691306, 0.97437006, -0.1505216, 0.16717117, 0, 0.23, 0)
+mesh = SubResource("PlaneMesh_3s5xd")
+
+[node name="Leaf6" type="MeshInstance3D" parent="Bush3/Leaves" unique_id=72370994]
+transform = Transform3D(0.7411375, 0.5026859, 0.44499665, 0.5985192, -0.19447072, -0.777146, -0.3041215, 0.842311, -0.44499674, 0, 0.3, 0)
+mesh = SubResource("PlaneMesh_3s5xd")

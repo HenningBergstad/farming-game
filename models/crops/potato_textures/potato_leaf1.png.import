@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf7a1d7qw0xpb"
-path.s3tc="res://.godot/imported/corn.png-48029b198b24e1b62c04fbd52c876f8a.s3tc.ctex"
+uid="uid://8vommf15vjor"
+path.s3tc="res://.godot/imported/potato_leaf1.png-52eeef976e3cd95b4fb55496310c6a44.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/crops/corn_textures/corn.png"
-dest_files=["res://.godot/imported/corn.png-48029b198b24e1b62c04fbd52c876f8a.s3tc.ctex"]
+source_file="res://models/crops/potato_textures/potato_leaf1.png"
+dest_files=["res://.godot/imported/potato_leaf1.png-52eeef976e3cd95b4fb55496310c6a44.s3tc.ctex"]
 
 [params]
 

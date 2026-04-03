@@ -1,6 +1,8 @@
 extends Node3D
 class_name PlantBase
 
+@export var growth_curve: Curve
+
 var growth_progress: float
 var wind_direction: float
 var wind_strength: float
@@ -15,9 +17,12 @@ func setup(plot_data: PlotData) -> void:
 
 func update_growth(progress: float, duration: float) -> void:
 	growth_progress = progress
-	_apply_growth(progress, duration)
+	var curve_value = progress
+	if growth_curve != null:
+		curve_value = growth_curve.sample(progress)
+	_apply_growth(curve_value, duration)
 
-func set_wind(angle: float, strength: float, speed: float, duration: float) -> void:
+func set_wind(angle: float, strength: float, speed: float) -> void:
 	wind_direction = angle
 	wind_strength = strength
 	var direction_vec = Vector2(cos(angle), sin(angle))
@@ -26,7 +31,7 @@ func set_wind(angle: float, strength: float, speed: float, duration: float) -> v
 		if mat is ShaderMaterial:
 			mat.set_shader_parameter("wind_direction", direction_vec)
 			mat.set_shader_parameter("wind_strength", strength)
-			mat.set_shader_parameter("wind_speed", speed)
+			mat.set_shader_parameter("sway_speed", speed)
 
 func _build_plant() -> void:
 	pass

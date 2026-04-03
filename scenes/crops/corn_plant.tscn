@@ -2,13 +2,16 @@
 
 [ext_resource type="Shader" uid="uid://b1uf8yeu6sjpn" path="res://shaders/vegetation.gdshader" id="1_3krmp"]
 [ext_resource type="Script" uid="uid://cy7w87grc2k4e" path="res://scripts/plants/corn/corn_plant.gd" id="1_8mvd2"]
+[ext_resource type="Curve" uid="uid://dslbdaaxqj5a1" path="res://resources/growth_curve.tres" id="2_7c3g6"]
 [ext_resource type="Texture2D" uid="uid://nsq0b861nhpb" path="res://models/crops/corn_textures/corn_stem.png" id="2_tekeu"]
 [ext_resource type="Texture2D" uid="uid://deuqtplbrcs0o" path="res://models/crops/corn_textures/corn_leaf.png" id="3_tekeu"]
+[ext_resource type="Texture2D" uid="uid://bf7a1d7qw0xpb" path="res://models/crops/corn_textures/corn.png" id="5_2o214"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8mvd2"]
 render_priority = 0
 shader = ExtResource("1_3krmp")
 shader_parameter/albedo_texture = ExtResource("2_tekeu")
+shader_parameter/color_tint = Color(1, 1, 1, 1)
 shader_parameter/alpha_scissor_thershold = 0.5
 shader_parameter/backlight_color = Color(0.2, 0.5, 0.1, 1)
 shader_parameter/backlight_strength = 0.4
@@ -22,60 +25,11 @@ size = Vector2(0.03, 1.92)
 subdivide_depth = 10
 center_offset = Vector3(0, 0, -0.96)
 
-[sub_resource type="Shader" id="Shader_3krmp"]
-code = "shader_type spatial;
-render_mode cull_disabled;
-
-uniform sampler2D albedo_texture : source_color, filter_nearest;
-uniform float alpha_scissor_thershold : hint_range(0.0, 1.0) = 0.5;
-uniform vec3 backlight_color : source_color = vec3(0.2, 0.5, 0.1);
-uniform float backlight_strength: hint_range(0.0, 1.0) = 0.4;
-uniform vec2 wind_direction = vec2(1.0, 0.0);
-uniform float wind_strength : hint_range(0.0, 1.0) = 0.0;
-
-void vertex() {
-    vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-    float height_factor = max(world_pos.y, 0.0) * (max(world_pos.y, 0.0) / 2.0);
-    float sway = sin(TIME * 2.0 + world_pos.x * 0.5 + world_pos.z * 0.5);
-    
-    vec3 world_displacement = vec3(
-        wind_direction.x * sway * height_factor * wind_strength,
-        0.0,
-        wind_direction.y * sway * height_factor * wind_strength
-    );
-    
-    VERTEX += (inverse(MODEL_MATRIX) * vec4(world_displacement, 0.0)).xyz;
-}
-
-
-void fragment() {
-	vec4 tex = texture(albedo_texture, UV);
-	ALBEDO = tex.rgb;
-	ALPHA = tex.a;
-	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_thershold;
-	BACKLIGHT = backlight_color * backlight_strength;
-}
-
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2o214"]
-render_priority = 0
-shader = SubResource("Shader_3krmp")
-shader_parameter/albedo_texture = ExtResource("2_tekeu")
-shader_parameter/alpha_scissor_thershold = 0.522000024795
-shader_parameter/backlight_color = Color(0.2, 0.5, 0.1, 1)
-shader_parameter/backlight_strength = 0.4
-shader_parameter/wind_direction = Vector2(1, 0)
-shader_parameter/wind_strength = 0.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7c3g6"]
 render_priority = 0
 shader = ExtResource("1_3krmp")
 shader_parameter/albedo_texture = ExtResource("3_tekeu")
+shader_parameter/color_tint = Color(1, 1, 1, 1)
 shader_parameter/alpha_scissor_thershold = 0.5
 shader_parameter/backlight_color = Color(0.2, 0.5, 0.1, 1)
 shader_parameter/backlight_strength = 0.4
@@ -90,8 +44,26 @@ subdivide_width = 3
 subdivide_depth = 3
 center_offset = Vector3(0.15, 0, -0.15)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1tdj"]
+render_priority = 0
+shader = ExtResource("1_3krmp")
+shader_parameter/albedo_texture = ExtResource("5_2o214")
+shader_parameter/color_tint = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_thershold = 0.5
+shader_parameter/backlight_color = Color(0.2, 0.5, 0.1, 1)
+shader_parameter/backlight_strength = 0.4
+shader_parameter/wind_direction = Vector2(1, 0)
+shader_parameter/wind_strength = 0.0
+shader_parameter/sway_speed = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5ykwn"]
+material = SubResource("ShaderMaterial_a1tdj")
+size = Vector2(0.3, 0.3)
+center_offset = Vector3(0.12, 0, -0.12)
+
 [node name="CornPlant" type="Node3D" unique_id=2040703165]
 script = ExtResource("1_8mvd2")
+growth_curve = ExtResource("2_7c3g6")
 
 [node name="Corn" type="Node3D" parent="." unique_id=1210528224]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17390674, 0, -0.1616221)
@@ -105,7 +77,6 @@ mesh = SubResource("PlaneMesh_8mvd2")
 [node name="Stalk2" type="MeshInstance3D" parent="Corn/Stalk" unique_id=1311511773]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("PlaneMesh_8mvd2")
-surface_material_override/0 = SubResource("ShaderMaterial_2o214")
 
 [node name="Leaves" type="Node3D" parent="Corn" unique_id=718210647]
 
@@ -133,6 +104,10 @@ mesh = SubResource("PlaneMesh_3krmp")
 transform = Transform3D(0.34315374, 0.70174587, 0.62433815, 0.6300367, 0.32101977, -0.7071067, -0.6966341, 0.6360024, -0.3319665, 0, 1.89, 0)
 mesh = SubResource("PlaneMesh_3krmp")
 
+[node name="Leaf9" type="MeshInstance3D" parent="Corn/Leaves" unique_id=1053805479]
+transform = Transform3D(0.8551484, 0.38326457, 0.34904078, 0.51830447, -0.6438918, -0.5628176, 0.009036387, 0.66220206, -0.74927086, 0, 1.89, 0)
+mesh = SubResource("PlaneMesh_3krmp")
+
 [node name="Leaf7" type="MeshInstance3D" parent="Corn/Leaves" unique_id=1721082268]
 transform = Transform3D(-0.60277855, 0.3858676, -0.69840103, 0.6644629, -0.24184474, -0.7071067, -0.4417542, -0.89029056, -0.110615894, 0, 0.51, 0)
 mesh = SubResource("PlaneMesh_3krmp")
@@ -141,8 +116,16 @@ mesh = SubResource("PlaneMesh_3krmp")
 transform = Transform3D(-0.57384217, -0.41773576, -0.704416, 0.61844945, 0.34281212, -0.7071067, 0.5368661, -0.84141356, 0.061628405, 0, 1.6, 0)
 mesh = SubResource("PlaneMesh_3krmp")
 
-[node name="FruitPoint" type="Marker3D" parent="Corn" unique_id=616941008]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28, 0)
+[node name="FruitPoint" type="Marker3D" parent="Corn" unique_id=326188562]
+transform = Transform3D(0.8490547, 0, 0.528305, 0, 1, 0, -0.528305, 0, 0.8490547, 0, 1.92, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Corn/FruitPoint" unique_id=1761894221]
+transform = Transform3D(-0.49999994, 0.70710677, -0.49999997, 0.70710677, -3.090862e-08, -0.70710677, -0.5, -0.70710677, -0.49999997, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5ykwn")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Corn/FruitPoint" unique_id=700065058]
+transform = Transform3D(-0.5, -0.70710677, -0.49999997, 0.70710677, -3.090862e-08, -0.70710677, 0.49999994, -0.70710677, 0.49999997, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5ykwn")
 
 [node name="Corn2" type="Node3D" parent="." unique_id=505642207]
 transform = Transform3D(0.8490547, 0, 0.528305, 0, 1, 0, -0.528305, 0, 0.8490547, -0.18386412, 0, 0.13087755)
@@ -183,6 +166,10 @@ mesh = SubResource("PlaneMesh_3krmp")
 transform = Transform3D(0.1865002, 0.7759202, 0.6026319, 0.6142472, 0.3866337, -0.6879057, -0.7667581, 0.4984597, -0.40449956, 0, 1.89, 0)
 mesh = SubResource("PlaneMesh_3krmp")
 
+[node name="Leaf9" type="MeshInstance3D" parent="Corn2/Leaves" unique_id=1024423542]
+transform = Transform3D(0.6976882, 0.71593505, 0.025856107, 0.557305, -0.5197153, -0.6475391, -0.4501582, 0.46619022, -0.7615931, 0, 1.89, 0)
+mesh = SubResource("PlaneMesh_3krmp")
+
 [node name="Leaf7" type="MeshInstance3D" parent="Corn2/Leaves" unique_id=556155292]
 transform = Transform3D(0.45647675, 0.8882134, 0.052020326, 0.5844013, -0.25522622, -0.77028185, -0.6708978, 0.3820167, -0.63557804, 0, 0.651444, 0)
 mesh = SubResource("PlaneMesh_3krmp")
@@ -192,4 +179,12 @@ transform = Transform3D(-0.5432821, -0.39982685, -0.7382295, 0.6291583, 0.388316
 mesh = SubResource("PlaneMesh_3krmp")
 
 [node name="FruitPoint" type="Marker3D" parent="Corn2" unique_id=1500339025]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Corn2/FruitPoint" unique_id=1237154447]
+transform = Transform3D(-0.49999994, 0.70710677, -0.49999997, 0.70710677, -3.090862e-08, -0.70710677, -0.5, -0.70710677, -0.49999997, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5ykwn")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Corn2/FruitPoint" unique_id=557122965]
+transform = Transform3D(-0.5, -0.70710677, -0.49999997, 0.70710677, -3.090862e-08, -0.70710677, 0.49999994, -0.70710677, 0.49999997, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5ykwn")
